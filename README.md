@@ -1,1 +1,0 @@
-# gestor_de_archivos_funcional

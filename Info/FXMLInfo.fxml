@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane id="AnchorPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestor_de_archivos_funcional.Info.FXMLInfoController">
+   <children>
+      <BorderPane nodeOrientation="LEFT_TO_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <bottom>
+            <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="111.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+              <items>
+                  <TextArea editable="false" prefHeight="75.0" prefWidth="598.0" text="Esta aplicación ha sido realizada por Daniel Gil Calahorrano, esta diseñada para permitir crear, modificar y borrar archivos." wrapText="true" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="605.0" text="CopyRigh ® DAM2 21/22" textAlignment="CENTER" />
+              </items>
+            </SplitPane>
+         </bottom>
+         <center>
+            <Pane fx:id="pane" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fx:id="image_view" fitHeight="290.0" fitWidth="600.0">
+                     <image>
+                        <Image url="@../Resources/intento_logo_4_finalizado.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </center>
+         
+      </BorderPane>
+   </children>
+</AnchorPane>
