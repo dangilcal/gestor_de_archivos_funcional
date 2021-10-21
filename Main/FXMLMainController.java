@@ -5,7 +5,6 @@
  */
 package gestor_de_archivos_funcional.Main;
 
-import gestor_de_archivos_funcional.Funciones.funciones;
 import gestor_de_archivos_funcional.Gestor_de_archivos_funcional;
 import java.io.IOException;
 import java.net.URL;
@@ -53,8 +52,6 @@ public class FXMLMainController implements Initializable {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Abrir");
             stage.setScene(new Scene(root));
-            funciones.crear();
-            funciones.mostrar();
             stage.show();
         } catch (IOException e) {
             System.out.println(e);

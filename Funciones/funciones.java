@@ -5,7 +5,6 @@
  */
 package gestor_de_archivos_funcional.Funciones;
 
-import gestor_de_archivos_funcional.Abrir.FXMLAbrirController;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,6 +16,7 @@ import java.util.stream.Stream;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.text.Text;
 
 /**
@@ -34,25 +34,26 @@ public class funciones {
         }
     }
 
-    public static void mostrar() throws IOException {
+    public static void mostrar(TilePane tp) throws IOException {
         List<Path> result;
         try (Stream<Path> paths = Files.walk(Paths.get("FILES"))) {
             result = paths.collect(Collectors.toList());
         }
+
         //Creacion de variables
-        ImageView imageView = new ImageView();
-        BorderPane caja = new BorderPane();
-        Text nombre_fichero = new Text();
         File file;
-        String foto;
+        String foto = null;
 
         //Insertar iconos
         for (int i = 0; i < result.size(); i++) {
+            ImageView imageView = new ImageView();
+            BorderPane caja = new BorderPane();
+            Text nombre_fichero = new Text();
             file = result.get(i).toFile();
             if (!file.getName().equals("FILES")) {
                 if (file.isDirectory()) {
                     foto = "Resources/carpeta.png";
-                } else {
+                } else if (file.isFile()) {
                     foto = "Resources/fichero.png";
                 }
                 Image imagen = new Image(gestor_de_archivos_funcional.Gestor_de_archivos_funcional.class.getResource(foto).toString());
@@ -62,7 +63,8 @@ public class funciones {
                 caja.setCenter(imageView);
                 nombre_fichero.setText(file.getName());
                 caja.setBottom(nombre_fichero);
-                FXMLAbrirController.muestra(caja);
+                tp.getChildren().addAll(caja);
+
             }
 
         }
