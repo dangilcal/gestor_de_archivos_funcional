@@ -9,8 +9,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.TilePane;
 
 /**
  * FXML Controller class
@@ -23,10 +23,10 @@ public class FXMLAbrirController implements Initializable {
      * Initializes the controller class.
      */
     @FXML
-    static TitledPane titlePane;
+    static TilePane titlePane;
 
     public static void muestra(BorderPane caja) {
-        titlePane.getChildrenUnmodifiable(); //No sale Children
+        titlePane.getChildren().addAll(caja);
     }
 
     @Override
