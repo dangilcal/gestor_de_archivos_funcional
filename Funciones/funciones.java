@@ -58,8 +58,8 @@ public class funciones {
                 }
                 Image imagen = new Image(gestor_de_archivos_funcional.Gestor_de_archivos_funcional.class.getResource(foto).toString());
                 imageView.setImage(imagen);
-                imageView.setFitHeight(80);
-                imageView.setFitWidth(80);
+                imageView.setFitHeight(110);
+                imageView.setFitWidth(110);
                 caja.setCenter(imageView);
                 nombre_fichero.setText(file.getName());
                 caja.setBottom(nombre_fichero);
