@@ -45,27 +45,24 @@ public class funciones {
         String foto = null;
 
         //Insertar iconos
-        for (int i = 0; i < result.size(); i++) {
+        for (int i = 1; i < result.size(); i++) {
             ImageView imageView = new ImageView();
             BorderPane caja = new BorderPane();
             Text nombre_fichero = new Text();
             file = result.get(i).toFile();
-            if (!file.getName().equals("FILES")) {
-                if (file.isDirectory()) {
-                    foto = "Resources/carpeta.png";
-                } else if (file.isFile()) {
-                    foto = "Resources/fichero.png";
-                }
-                Image imagen = new Image(gestor_de_archivos_funcional.Gestor_de_archivos_funcional.class.getResource(foto).toString());
-                imageView.setImage(imagen);
-                imageView.setFitHeight(110);
-                imageView.setFitWidth(110);
-                caja.setCenter(imageView);
-                nombre_fichero.setText(file.getName());
-                caja.setBottom(nombre_fichero);
-                tp.getChildren().addAll(caja);
-
+            if (file.isDirectory()) {
+                foto = "Resources/carpeta.png";
+            } else if (file.isFile()) {
+                foto = "Resources/fichero.png";
             }
+            Image imagen = new Image(gestor_de_archivos_funcional.Gestor_de_archivos_funcional.class.getResource(foto).toString());
+            imageView.setImage(imagen);
+            imageView.setFitHeight(110);
+            imageView.setFitWidth(110);
+            caja.setCenter(imageView);
+            nombre_fichero.setText(file.getName());
+            caja.setBottom(nombre_fichero);
+            tp.getChildren().addAll(caja);
 
         }
 
