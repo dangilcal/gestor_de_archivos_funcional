@@ -13,6 +13,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.TilePane;
 
 /**
@@ -41,6 +44,37 @@ public class FXMLAbrirController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(FXMLAbrirController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem crear_archivo = new MenuItem("Crear archivo");
+        MenuItem crear_carpeta = new MenuItem("Crear carpeta");
+        contextMenu.getItems().addAll(crear_archivo, crear_carpeta);
+
+        titlePane.setOnContextMenuRequested((ContextMenuEvent e) -> {
+            contextMenu.show(titlePane, e.getScreenX(), e.getScreenY());
+        });
+
+        titlePane.setOnMousePressed((event) -> {
+            if (contextMenu.isShowing()) {
+                contextMenu.hide();
+            }
+        });
+
+        crear_archivo.setOnAction(event -> {
+            try {
+                funciones.crear_ventana("Crear archivo");
+            } catch (IOException ex) {
+                Logger.getLogger(FXMLAbrirController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+
+        crear_carpeta.setOnAction(event -> {
+            try {
+                funciones.crear_ventana("Crear carpeta");
+            } catch (IOException ex) {
+                Logger.getLogger(FXMLAbrirController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
 
     }
 

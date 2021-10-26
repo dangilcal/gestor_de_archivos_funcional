@@ -5,6 +5,8 @@
  */
 package gestor_de_archivos_funcional.Funciones;
 
+import gestor_de_archivos_funcional.Gestor_de_archivos_funcional;
+import gestor_de_archivos_funcional.Ventanas.FXMLVentanaController;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,17 +15,26 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  *
  * @author dangilcal
  */
 public class funciones {
+
+    funciones funciones;
 
     public static void crear() {
         Path path = Paths.get("FILES");
@@ -49,6 +60,8 @@ public class funciones {
             ImageView imageView = new ImageView();
             BorderPane caja = new BorderPane();
             Text nombre_fichero = new Text();
+            BorderPane.setAlignment(nombre_fichero, Pos.CENTER);
+            caja.setPadding(new Insets(10, 10, 10, 10));
             file = result.get(i).toFile();
             if (file.isDirectory()) {
                 foto = "Resources/carpeta.png";
@@ -57,8 +70,8 @@ public class funciones {
             }
             Image imagen = new Image(gestor_de_archivos_funcional.Gestor_de_archivos_funcional.class.getResource(foto).toString());
             imageView.setImage(imagen);
-            imageView.setFitHeight(110);
-            imageView.setFitWidth(110);
+            imageView.setFitHeight(50);
+            imageView.setFitWidth(50);
             caja.setCenter(imageView);
             nombre_fichero.setText(file.getName());
             caja.setBottom(nombre_fichero);
@@ -66,6 +79,21 @@ public class funciones {
 
         }
 
+    }
+
+    public static void crear_ventana(String i) throws IOException {
+
+        FXMLLoader fxmlLoader = new FXMLLoader(Gestor_de_archivos_funcional.class.getResource("Ventanas/FXMLVentana.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+
+        gestor_de_archivos_funcional.Ventanas.FXMLVentanaController FXMLVentanaControllerInstancia = (FXMLVentanaController) fxmlLoader.getController();
+        FXMLVentanaControllerInstancia.enviarLabel(i);
+
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle(i.toUpperCase());
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
 }
