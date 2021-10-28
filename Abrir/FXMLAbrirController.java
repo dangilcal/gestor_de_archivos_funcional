@@ -38,7 +38,7 @@ public class FXMLAbrirController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         try {
             // TODO
-            funciones.crear();
+            funciones.crear_carpeta_principal();
 
             funciones.mostrar(titlePane);
         } catch (IOException ex) {

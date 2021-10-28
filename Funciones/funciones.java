@@ -35,8 +35,9 @@ import javafx.stage.Stage;
 public class funciones {
 
     funciones funciones;
+    static TilePane titlepane;
 
-    public static void crear() {
+    public static void crear_carpeta_principal() {
         Path path = Paths.get("FILES");
         try {
             Files.createDirectory(path);
@@ -50,6 +51,8 @@ public class funciones {
         try (Stream<Path> paths = Files.walk(Paths.get("FILES"))) {
             result = paths.collect(Collectors.toList());
         }
+        titlepane = tp;
+        tp.getChildren().clear();
 
         //Creacion de variables
         File file;
@@ -94,6 +97,22 @@ public class funciones {
         stage.setTitle(i.toUpperCase());
         stage.setScene(new Scene(root));
         stage.show();
+    }
+
+    public static void crear_directorio(String nombre) throws IOException {
+        Path path = Paths.get("FILES/" + nombre);
+        try {
+            Files.createDirectory(path);
+        } catch (IOException ex) {
+            System.out.println("Ya existe la carpeta");
+        }
+        mostrar(titlepane);
+    }
+
+    public static void crear_fichero(String nombre) throws IOException {
+        Path path = Paths.get("FILES/" + nombre + ".txt");
+        Files.createFile(path);
+        mostrar(titlepane);
     }
 
 }

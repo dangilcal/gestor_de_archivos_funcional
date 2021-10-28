@@ -5,6 +5,8 @@
  */
 package gestor_de_archivos_funcional.Ventanas;
 
+import gestor_de_archivos_funcional.Funciones.funciones;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -24,6 +26,7 @@ import javafx.stage.Stage;
  */
 public class FXMLVentanaController implements Initializable {
 
+    String creacion;
     @FXML
     private Label label;
 
@@ -46,20 +49,34 @@ public class FXMLVentanaController implements Initializable {
     }
 
     @FXML
-    private void onMouseClicked(MouseEvent event) {
+    private void onMouseClickedClose(MouseEvent event) {
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-
+    @FXML
+    private void onMouseClickedCreate(MouseEvent event) throws IOException {
+        String nombre = tField.getText();
+        if (creacion.equals("Crear archivo")) {
+            funciones.crear_fichero(nombre);
+        } else if (creacion.equals("Crear carpeta")) {
+            funciones.crear_directorio(nombre);
+        }
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
     public void enviarLabel(String texto) {
         label.setText(texto);
+        creacion = texto;
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+
     }
 
 }
