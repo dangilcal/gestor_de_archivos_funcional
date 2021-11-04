@@ -7,24 +7,15 @@ package gestor_de_archivos_funcional.Funciones;
 
 import gestor_de_archivos_funcional.Gestor_de_archivos_funcional;
 import gestor_de_archivos_funcional.Ventanas.FXMLVentanaController;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.TilePane;
-import javafx.scene.text.Text;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -35,84 +26,63 @@ import javafx.stage.Stage;
 public class funciones {
 
     funciones funciones;
-    static TilePane titlepane;
 
-    public static void crear_carpeta_principal() {
-        Path path = Paths.get("FILES");
+    public static void crear_carpeta_principal() { //Crea la carpeta principal del proyecto si no existe
+        Path path = Paths.get(constantes.CARPETA_RAIZ); //Dentro se encuentra la ruta y nombre de la carperta raiz
         try {
-            Files.createDirectory(path);
+            Files.createDirectory(path); //Crear directorio
         } catch (IOException ex) {
             System.out.println("Ya existe la carpeta");
         }
     }
 
-    public static void mostrar(TilePane tp) throws IOException {
-        List<Path> result;
-        try (Stream<Path> paths = Files.walk(Paths.get("FILES"))) {
-            result = paths.collect(Collectors.toList());
+    public static void ventana_mostrar_info() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Gestor_de_archivos_funcional.class.getResource("Info/FXMLInfo.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.initModality(Modality.WINDOW_MODAL); //Window modal permite interactuar con el main
+            stage.setTitle("Info"); //Nombre de la ventgana
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            System.out.println(e);
         }
-        titlepane = tp;
-        tp.getChildren().clear();
-
-        //Creacion de variables
-        File file;
-        String foto = null;
-
-        //Insertar iconos
-        for (int i = 1; i < result.size(); i++) {
-            ImageView imageView = new ImageView();
-            BorderPane caja = new BorderPane();
-            Text nombre_fichero = new Text();
-            BorderPane.setAlignment(nombre_fichero, Pos.CENTER);
-            caja.setPadding(new Insets(10, 10, 10, 10));
-            file = result.get(i).toFile();
-            if (file.isDirectory()) {
-                foto = "Resources/carpeta.png";
-            } else if (file.isFile()) {
-                foto = "Resources/fichero.png";
-            }
-            Image imagen = new Image(gestor_de_archivos_funcional.Gestor_de_archivos_funcional.class.getResource(foto).toString());
-            imageView.setImage(imagen);
-            imageView.setFitHeight(50);
-            imageView.setFitWidth(50);
-            caja.setCenter(imageView);
-            nombre_fichero.setText(file.getName());
-            caja.setBottom(nombre_fichero);
-            tp.getChildren().addAll(caja);
-
-        }
-
     }
 
-    public static void crear_ventana(String i) throws IOException {
+    public static void ventana_mostrar_ficheros() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Gestor_de_archivos_funcional.class.getResource("Abrir/FXMLAbrir.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL); //Application modal no permite interactuar con otras pantallas
+            stage.setTitle("Abrir"); //Nombre de la ventana
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
+
+    public static void ventana_crear_fichero_directorio(String i) throws IOException {
 
         FXMLLoader fxmlLoader = new FXMLLoader(Gestor_de_archivos_funcional.class.getResource("Ventanas/FXMLVentana.fxml"));
         Parent root = (Parent) fxmlLoader.load();
-
+        //Crea una instancia
         gestor_de_archivos_funcional.Ventanas.FXMLVentanaController FXMLVentanaControllerInstancia = (FXMLVentanaController) fxmlLoader.getController();
-        FXMLVentanaControllerInstancia.enviarLabel(i);
+        FXMLVentanaControllerInstancia.enviarLabel(i); //Modifica el label con crear carpeta o archivo
 
         Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle(i.toUpperCase());
+        stage.initModality(Modality.APPLICATION_MODAL);//Application modal no permite interactuar con otras pantallas
+        stage.setTitle(i.toUpperCase()); //Nombre de la ventana en mayusculas
         stage.setScene(new Scene(root));
         stage.show();
     }
 
-    public static void crear_directorio(String nombre) throws IOException {
-        Path path = Paths.get("FILES/" + nombre);
-        try {
-            Files.createDirectory(path);
-        } catch (IOException ex) {
-            System.out.println("Ya existe la carpeta");
-        }
-        mostrar(titlepane);
+    public static void cerrar_ventana(MouseEvent event) {
+        //Cierra la ventana
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
     }
-
-    public static void crear_fichero(String nombre) throws IOException {
-        Path path = Paths.get("FILES/" + nombre + ".txt");
-        Files.createFile(path);
-        mostrar(titlepane);
-    }
-
 }

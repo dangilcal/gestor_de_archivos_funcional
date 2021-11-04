@@ -5,19 +5,13 @@
  */
 package gestor_de_archivos_funcional.Main;
 
-import gestor_de_archivos_funcional.Gestor_de_archivos_funcional;
-import java.io.IOException;
+import gestor_de_archivos_funcional.Funciones.funciones;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Menu;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 /**
  *
@@ -30,32 +24,12 @@ public class FXMLMainController implements Initializable {
 
     @FXML
     private void click_info(ActionEvent k) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Gestor_de_archivos_funcional.class.getResource("Info/FXMLInfo.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.setTitle("Info");
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            System.out.println(e);
-        }
+        funciones.ventana_mostrar_info();
     }
 
     @FXML
     private void click_abrir(ActionEvent k) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Gestor_de_archivos_funcional.class.getResource("Abrir/FXMLAbrir.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setTitle("Abrir");
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            System.out.println(e);
-        }
+        funciones.ventana_mostrar_ficheros();
     }
 
     @Override

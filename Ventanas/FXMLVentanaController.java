@@ -5,19 +5,19 @@
  */
 package gestor_de_archivos_funcional.Ventanas;
 
+import gestor_de_archivos_funcional.Funciones.constantes;
 import gestor_de_archivos_funcional.Funciones.funciones;
+import gestor_de_archivos_funcional.Funciones.ventanaAcciones;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -37,41 +37,45 @@ public class FXMLVentanaController implements Initializable {
     private TextField tField;
 
     @FXML
-    private void onKeyReleased(KeyEvent event) {
+    private void onKeyTyped(KeyEvent event) {
         if (event.getCharacter().matches("[0-9]")) {
-            event.consume();
+            event.consume(); //Elimina los numeros
         }
+    }
+
+    @FXML
+    private void onKeyReleased(KeyEvent event) {
+
         if (tField.getText().isEmpty()) {
-            create.setDisable(true);
+            create.setDisable(true); //Habilita el boton "Create"
         } else {
-            create.setDisable(false);
+            create.setDisable(false);//Deshabilita el boton "Create"
         }
     }
 
     @FXML
     private void onMouseClickedClose(MouseEvent event) {
-        Node source = (Node) event.getSource();
-        Stage stage = (Stage) source.getScene().getWindow();
-        stage.close();
+        //Cierra la ventana
+        funciones.cerrar_ventana(event);
     }
 
+    //Pulsar el boton de crear
     @FXML
     private void onMouseClickedCreate(MouseEvent event) throws IOException {
-        String nombre = tField.getText();
-        if (creacion.equals("Crear archivo")) {
-            funciones.crear_fichero(nombre);
-        } else if (creacion.equals("Crear carpeta")) {
-            funciones.crear_directorio(nombre);
+        String nombre = tField.getText(); //Recoge el texto
+        if (creacion.equals(constantes.CREAR_FICHERO)) {
+            ventanaAcciones.crear_fichero(nombre); //Crea fichero
+        } else if (creacion.equals(constantes.CREAR_DIRECTORIO)) {
+            ventanaAcciones.crear_directorio(nombre); //Crea directorio
         }
-        Node source = (Node) event.getSource();
-        Stage stage = (Stage) source.getScene().getWindow();
-        stage.close();
+        //cierra la ventana
+        funciones.cerrar_ventana(event);
     }
 
     @FXML
     public void enviarLabel(String texto) {
-        label.setText(texto);
-        creacion = texto;
+        label.setText(texto); //Cambia el nombre del label a crear fichero o crear directorio
+        creacion = texto; //Guarda el nombre del label para seleccionar que quieres crear
     }
 
     @Override

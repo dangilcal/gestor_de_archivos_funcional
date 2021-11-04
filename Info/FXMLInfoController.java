@@ -27,13 +27,9 @@ public class FXMLInfoController implements Initializable {
     @FXML
     private Pane pane;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            // TODO
             start();
         } catch (Exception ex) {
             Logger.getLogger(FXMLInfoController.class.getName()).log(Level.SEVERE, null, ex);
@@ -41,6 +37,7 @@ public class FXMLInfoController implements Initializable {
     }
 
     public void start() throws Exception {
+        //Imagen responsiva
         image_view.fitWidthProperty().bind(pane.widthProperty());
         image_view.fitHeightProperty().bind(pane.heightProperty());
     }
