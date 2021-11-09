@@ -61,7 +61,7 @@ public class FXMLAbrirController implements Initializable {
         //Al pulsar crear archivo ejecuta la función
         crear_archivo.setOnAction(event -> {
             try {
-                funciones.ventana_crear_fichero_directorio(constantes.CREAR_DIRECTORIO);
+                funciones.ventana_crear_fichero_directorio(constantes.CREAR_FICHERO);
             } catch (IOException ex) {
                 Logger.getLogger(FXMLAbrirController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -70,7 +70,7 @@ public class FXMLAbrirController implements Initializable {
         //Al pulsar crear directorio ejecuta la función
         crear_carpeta.setOnAction(event -> {
             try {
-                funciones.ventana_crear_fichero_directorio(constantes.CREAR_FICHERO);
+                funciones.ventana_crear_fichero_directorio(constantes.CREAR_DIRECTORIO);
             } catch (IOException ex) {
                 Logger.getLogger(FXMLAbrirController.class.getName()).log(Level.SEVERE, null, ex);
             }

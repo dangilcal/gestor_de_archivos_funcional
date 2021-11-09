@@ -26,6 +26,8 @@ import javafx.stage.Stage;
 public class funciones {
 
     funciones funciones;
+    static Stage stage_mostrar_ficheros;
+    static Stage stage_mostrar_info;
 
     public static void crear_carpeta_principal() { //Crea la carpeta principal del proyecto si no existe
         Path path = Paths.get(constantes.CARPETA_RAIZ); //Dentro se encuentra la ruta y nombre de la carperta raiz
@@ -44,6 +46,7 @@ public class funciones {
             stage.initModality(Modality.WINDOW_MODAL); //Window modal permite interactuar con el main
             stage.setTitle("Info"); //Nombre de la ventgana
             stage.setScene(new Scene(root));
+            stage_mostrar_info = stage;
             stage.show();
         } catch (IOException e) {
             System.out.println(e);
@@ -56,8 +59,10 @@ public class funciones {
             Parent root = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL); //Application modal no permite interactuar con otras pantallas
-            stage.setTitle("Abrir"); //Nombre de la ventana
+            stage.setTitle("FILES"); //Nombre de la ventana
+            stage_mostrar_ficheros = stage;
             stage.setScene(new Scene(root));
+
             stage.show();
         } catch (IOException e) {
             System.out.println(e);

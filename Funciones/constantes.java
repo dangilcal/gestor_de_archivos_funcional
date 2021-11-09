@@ -14,7 +14,7 @@ public class constantes {
     public static final String CARPETA_RAIZ = "FILES";
     public static final String IMAGEN_CARPETA = "Resources/carpeta.png";
     public static final String IMAGEN_ARCHIVO = "Resources/fichero.png";
-    public static final String CREAR_FICHERO = "Crear carpeta";
-    public static final String CREAR_DIRECTORIO = "Crear archivo";
+    public static final String CREAR_FICHERO = "Crear archivo";
+    public static final String CREAR_DIRECTORIO = "Crear carpeta";
 
 }
