@@ -11,7 +11,7 @@
     <children>
       <BorderPane prefHeight="458.0" prefWidth="617.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-            <TextArea prefHeight="530.0" prefWidth="804.0" wrapText="true" BorderPane.alignment="CENTER" />
+            <TextArea fx:id="textArea" prefHeight="530.0" prefWidth="804.0" wrapText="true" BorderPane.alignment="CENTER" />
          </center>
          <top>
             <MenuBar prefHeight="3.0" prefWidth="617.0" BorderPane.alignment="CENTER">
@@ -22,9 +22,10 @@
                      </items></Menu>
                 <Menu mnemonicParsing="false" text="Edit">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Guardar" />
-                        <MenuItem mnemonicParsing="false" text="Borrar" />
+                    <MenuItem mnemonicParsing="false" onAction="#click_guardar" text="Guardar" />
+                        <MenuItem mnemonicParsing="false" onAction="#click_borrar" text="Borrar" />
                         <MenuItem mnemonicParsing="false" onAction="#click_abrir" text="Abrir" />
+                        <MenuItem mnemonicParsing="false" text="New File" />
                   </items>
                 </Menu>
               </menus>

@@ -5,11 +5,8 @@
  */
 package gestor_de_archivos_funcional;
 
+import gestor_de_archivos_funcional.Funciones.funciones;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
@@ -18,22 +15,16 @@ import javafx.stage.Stage;
  */
 public class Gestor_de_archivos_funcional extends Application {
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("Main/FXMLMain.fxml"));
-
-        Scene scene = new Scene(root);
-
-        stage.setScene(scene);
-        stage.show();
-        stage.setOnCloseRequest(a -> Platform.exit());
-    }
-
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         launch(args);
+    }
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        funciones.ventana_main(stage);
     }
 
 }

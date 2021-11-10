@@ -15,9 +15,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.TilePane;
 
 /**
  * FXML Controller class
@@ -36,6 +38,13 @@ public class FXMLVentanaController implements Initializable {
     @FXML
     private TextField tField;
 
+    private TextArea textArea;
+    private TilePane tilepane;
+
+    public void setTextArea(TextArea textArea) {
+        this.textArea = textArea;
+    }
+
     @FXML
     private void onKeyTyped(KeyEvent event) {
         if (event.getCharacter().matches("[0-9]")) {
@@ -45,7 +54,6 @@ public class FXMLVentanaController implements Initializable {
 
     @FXML
     private void onKeyReleased(KeyEvent event) {
-
         if (tField.getText().isEmpty()) {
             create.setDisable(true); //Habilita el boton "Create"
         } else {
@@ -64,9 +72,9 @@ public class FXMLVentanaController implements Initializable {
     private void onMouseClickedCreate(MouseEvent event) throws IOException {
         String nombre = tField.getText(); //Recoge el texto
         if (creacion.equals(constantes.CREAR_FICHERO)) {
-            ventanaAcciones.crear_fichero(nombre); //Crea fichero
+            ventanaAcciones.crear_fichero(nombre, textArea, tilepane); //Crea fichero
         } else if (creacion.equals(constantes.CREAR_DIRECTORIO)) {
-            ventanaAcciones.crear_directorio(nombre); //Crea directorio
+            ventanaAcciones.crear_directorio(nombre, textArea, tilepane); //Crea directorio
         }
         //cierra la ventana
         funciones.cerrar_ventana(event);

@@ -6,12 +6,15 @@
 package gestor_de_archivos_funcional.Main;
 
 import gestor_de_archivos_funcional.Funciones.funciones;
+import gestor_de_archivos_funcional.Funciones.ventanaAcciones;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Menu;
+import javafx.scene.control.TextArea;
 
 /**
  *
@@ -23,18 +26,30 @@ public class FXMLMainController implements Initializable {
     private Menu Menu_Info;
 
     @FXML
+    private TextArea textArea;
+
+    @FXML
     private void click_info(ActionEvent k) {
         funciones.ventana_mostrar_info();
     }
 
     @FXML
     private void click_abrir(ActionEvent k) {
-        funciones.ventana_mostrar_ficheros();
+        funciones.ventana_mostrar_ficheros(textArea);
+    }
+
+    @FXML
+    private void click_borrar(ActionEvent k) {
+        ventanaAcciones.eliminar_fichero();
+    }
+
+    @FXML
+    private void click_guardar(ActionEvent k) throws IOException {
+        ventanaAcciones.guardar_fichero(textArea);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
 
     }
 

@@ -12,6 +12,7 @@ package gestor_de_archivos_funcional.Funciones;
 public class constantes {
 
     public static final String CARPETA_RAIZ = "FILES";
+    public static final String TITULO_MAIN = "NUEVO ARCHIVO";
     public static final String IMAGEN_CARPETA = "Resources/carpeta.png";
     public static final String IMAGEN_ARCHIVO = "Resources/fichero.png";
     public static final String CREAR_FICHERO = "Crear archivo";
