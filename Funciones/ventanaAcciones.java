@@ -12,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +26,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 /**
  *
@@ -32,7 +34,6 @@ import javafx.scene.text.Text;
  */
 public class ventanaAcciones {
 
-    //static TilePane tilepane;
     static String rutaActual = constantes.CARPETA_RAIZ;
     static String rutaGuardada = constantes.CARPETA_RAIZ;
     static String nombre_fichero;
@@ -42,7 +43,8 @@ public class ventanaAcciones {
         rutaActual = constantes.CARPETA_RAIZ;
     }
 
-    public static void mostrar(TilePane tilepane, TextArea textArea) throws IOException {
+    public static void mostrar(TilePane tilepane, TextArea textArea, Stage stage_main, Stage stage) throws IOException {
+        List<String> rutas = new ArrayList();
         List<Path> result;
         try (Stream<Path> paths = Files.walk(Paths.get(rutaActual), 1)) {
             result = paths.collect(Collectors.toList()); //Guarda todos los ficheros en result
@@ -63,11 +65,11 @@ public class ventanaAcciones {
             File file = result.get(i).toFile();
             if (file.isDirectory()) { //Elige la imagen
                 foto = constantes.IMAGEN_CARPETA;
-                Entrar_carpeta(caja, file, textArea, tilepane); //Doble click para entrar en la carpeta
+                Entrar_carpeta(caja, file, textArea, tilepane, stage_main, stage); //Doble click para entrar en la carpeta
             } else if (file.isFile()) {
                 foto = constantes.IMAGEN_ARCHIVO;
 
-                Editar_fichero(caja, file, textArea);
+                Editar_fichero(caja, file, textArea, stage_main, stage);
             }
             //Insertar imagen y el tamaño de las imagenes
             Image imagen = new Image(gestor_de_archivos_funcional.Gestor_de_archivos_funcional.class.getResource(foto).toString());
@@ -86,13 +88,13 @@ public class ventanaAcciones {
 
     }
 
-    private static void Entrar_carpeta(BorderPane caja, File file, TextArea textArea, TilePane tilepane) {
+    private static void Entrar_carpeta(BorderPane caja, File file, TextArea textArea, TilePane tilepane, Stage stage_main, Stage stage) {
         caja.setOnMouseClicked((event) -> {
             if (event.getClickCount() == 2) {
-                funciones.stage_mostrar_ficheros.setTitle(file.getName());
+                stage.setTitle(file.getName());
                 rutaActual = rutaGuardada + "/" + file.getName();
                 try {
-                    mostrar(tilepane, textArea);
+                    mostrar(tilepane, textArea, stage_main, stage);
                 } catch (IOException ex) {
                     Logger.getLogger(ventanaAcciones.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -100,12 +102,12 @@ public class ventanaAcciones {
         });
     }
 
-    private static void Editar_fichero(BorderPane caja, File file, TextArea textArea) {
+    private static void Editar_fichero(BorderPane caja, File file, TextArea textArea, Stage stage_main, Stage stage) {
         caja.setOnMouseClicked((event) -> {
             if (event.getClickCount() == 2) {
                 nombre_fichero = file.getName();
                 rutaActual = rutaGuardada + "/" + nombre_fichero;
-                funciones.stage_main.setTitle(nombre_fichero);
+                stage_main.setTitle(nombre_fichero);
                 try {
                     byte[] bytes = Files.readAllBytes(Paths.get(rutaActual));
                     String content = new String(bytes, StandardCharsets.UTF_8);
@@ -113,13 +115,13 @@ public class ventanaAcciones {
                 } catch (IOException ex) {
                     Logger.getLogger(ventanaAcciones.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                funciones.stage_mostrar_ficheros.close();
+                stage.close();
             }
         }
         );
     }
 
-    public static void crear_directorio(String nombre, TextArea textArea, TilePane tilepane) throws IOException {
+    public static void crear_directorio(String nombre, TextArea textArea, TilePane tilepane, Stage stage) throws IOException {
         Path path = Paths.get(rutaGuardada + "/" + nombre);
         try {
             Files.createDirectory(path);
@@ -127,10 +129,10 @@ public class ventanaAcciones {
         } catch (IOException ex) {
             System.out.println("Ya existe la carpeta");
         }
-        mostrar(tilepane, textArea); //Limpia y muestra los ficheros
+        //mostrar(tilepane, textArea, stage_main); //Limpia y muestra los ficheros
     }
 
-    public static void crear_fichero(String nombre, TextArea textArea, TilePane tilepane) throws IOException {
+    public static void crear_fichero(String nombre, TextArea textArea, TilePane tilepane, Stage stage) throws IOException {
         Path path = Paths.get(rutaGuardada + "/" + nombre + ".txt");
         name = nombre;
         try {
@@ -140,21 +142,21 @@ public class ventanaAcciones {
             System.out.println("Ya existe el archivo");
         }
         if (tilepane != null) {
-            mostrar(tilepane, textArea); //Limpia y muestra los ficheros
+            //mostrar(tilepane, textArea, stage_main); //Limpia y muestra los ficheros
         }
     }
 
-    public static void eliminar_fichero() {
+    public static void eliminar_fichero(Stage stage) {
         File file = new File(rutaActual);
         file.delete();
         rutaActual = constantes.CARPETA_RAIZ;
-        funciones.stage_main.setTitle(constantes.TITULO_MAIN);
+        stage.setTitle(constantes.TITULO_MAIN);
 
     }
 
-    public static void guardar_fichero(TextArea textArea) throws IOException {
-        if (funciones.stage_main.getTitle().equals(constantes.TITULO_MAIN)) {
-            funciones.ventana_crear_fichero_directorio(constantes.CREAR_FICHERO, textArea);
+    public static void guardar_fichero(TextArea textArea, Stage stage_main) throws IOException {
+        if (stage_main.getTitle().equals(constantes.TITULO_MAIN)) {
+            funciones.ventana_crear_fichero_directorio(constantes.CREAR_FICHERO, textArea, null);
 
             Modificar_fichero(constantes.CARPETA_RAIZ + "/" + name, textArea);
         } else {
@@ -164,10 +166,10 @@ public class ventanaAcciones {
 
     }
 
-    public static void CreateTilePaneWIcons(TilePane titlePane, TextArea textArea) throws IOException {
+    public static void CreateTilePaneWIcons(TilePane titlePane, TextArea textArea, Stage stage_main, Stage stage) throws IOException {
 
         funciones.crear_carpeta_principal(); //Crea la carpeta si no existe
-        ventanaAcciones.mostrar(titlePane, textArea); //Muestra el panel con los ficheros
+        ventanaAcciones.mostrar(titlePane, textArea, stage_main, stage); //Muestra el panel con los ficheros
 
     }
 

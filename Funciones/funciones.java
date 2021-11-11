@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -29,18 +28,6 @@ import javafx.stage.Stage;
 public class funciones {
 
     funciones funciones;
-    static Stage stage_mostrar_ficheros;
-    static Stage stage_main;
-
-    public static void ventana_main(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(Gestor_de_archivos_funcional.class.getResource("Main/FXMLMain.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage_main = stage;
-        stage.setTitle(constantes.TITULO_MAIN);
-        stage.show();
-        stage.setOnCloseRequest(a -> Platform.exit());
-    }
 
     public static void crear_carpeta_principal() { //Crea la carpeta principal del proyecto si no existe
         Path path = Paths.get(constantes.CARPETA_RAIZ); //Dentro se encuentra la ruta y nombre de la carperta raiz
@@ -65,17 +52,23 @@ public class funciones {
         }
     }
 
-    public static void ventana_mostrar_ficheros(TextArea textArea) {
+    public static void ventana_mostrar_ficheros(TextArea textArea, Stage stage_main) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Gestor_de_archivos_funcional.class.getResource("Abrir/FXMLAbrir.fxml"));
             Parent root = (Parent) fxmlLoader.load();
             FXMLAbrirController fXMLAbrirControllerInstancia = fxmlLoader.getController();
+
             Stage stage = new Stage();
             fXMLAbrirControllerInstancia.setTextArea(textArea);
-            ventanaAcciones.CreateTilePaneWIcons(fXMLAbrirControllerInstancia.getTilePane(), textArea);
+            fXMLAbrirControllerInstancia.setStageAbrir(stage);
+            ventanaAcciones.CreateTilePaneWIcons(fXMLAbrirControllerInstancia.getTilePane(), textArea, stage_main, stage);
+
+            //Este es el stage que falta, el de la pantalla de archivos
+            //
+            //
             stage.initModality(Modality.APPLICATION_MODAL); //Application modal no permite interactuar con otras pantallas
             stage.setTitle("FILES"); //Nombre de la ventana
-            stage_mostrar_ficheros = stage;
+            //stage_mostrar_ficheros = stage;
             stage.setScene(new Scene(root));
             //ventanaAcciones.rutaAcual_raiz();
             stage.show();
@@ -84,13 +77,14 @@ public class funciones {
         }
     }
 
-    public static void ventana_crear_fichero_directorio(String nombreLabel, TextArea textArea) throws IOException {
+    public static void ventana_crear_fichero_directorio(String nombreLabel, TextArea textArea, Stage stage_abrir) throws IOException {
 
         FXMLLoader fxmlLoader = new FXMLLoader(Gestor_de_archivos_funcional.class.getResource("Ventanas/FXMLVentana.fxml"));
         Parent root = (Parent) fxmlLoader.load();
         //Crea una instancia
         FXMLVentanaController fXMLVentanaControllerInstancia = fxmlLoader.getController();
         fXMLVentanaControllerInstancia.enviarLabel(nombreLabel); //Modifica el label con crear carpeta o archivo
+        fXMLVentanaControllerInstancia.setStage(stage_abrir);
         fXMLVentanaControllerInstancia.setTextArea(textArea);
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);//Application modal no permite interactuar con otras pantallas

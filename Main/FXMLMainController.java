@@ -15,12 +15,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Menu;
 import javafx.scene.control.TextArea;
+import javafx.stage.Stage;
 
 /**
  *
  * @author dangilcal
  */
 public class FXMLMainController implements Initializable {
+
+    private Stage stage;
 
     @FXML
     private Menu Menu_Info;
@@ -35,17 +38,21 @@ public class FXMLMainController implements Initializable {
 
     @FXML
     private void click_abrir(ActionEvent k) {
-        funciones.ventana_mostrar_ficheros(textArea);
+        funciones.ventana_mostrar_ficheros(textArea, stage);
     }
 
     @FXML
     private void click_borrar(ActionEvent k) {
-        ventanaAcciones.eliminar_fichero();
+        ventanaAcciones.eliminar_fichero(stage);
     }
 
     @FXML
     private void click_guardar(ActionEvent k) throws IOException {
-        ventanaAcciones.guardar_fichero(textArea);
+        ventanaAcciones.guardar_fichero(textArea, stage);
+    }
+
+    public void setStage(Stage s) {
+        stage = s;
     }
 
     @Override

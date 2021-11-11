@@ -19,6 +19,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.TilePane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -31,9 +32,14 @@ public class FXMLAbrirController implements Initializable {
     private TilePane tilePane;
 
     private TextArea textArea;
+    private Stage stage_abrir;
 
     public void setTextArea(TextArea textArea) {
         this.textArea = textArea;
+    }
+
+    public void setStageAbrir(Stage stage_abrir) {
+        this.stage_abrir = stage_abrir;
     }
 
     public TilePane getTilePane() {
@@ -62,7 +68,7 @@ public class FXMLAbrirController implements Initializable {
         //Al pulsar crear archivo ejecuta la función
         crear_archivo.setOnAction(event -> {
             try {
-                funciones.ventana_crear_fichero_directorio(constantes.CREAR_FICHERO, textArea);
+                funciones.ventana_crear_fichero_directorio(constantes.CREAR_FICHERO, textArea, stage_abrir);
             } catch (IOException ex) {
                 Logger.getLogger(FXMLAbrirController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -71,7 +77,7 @@ public class FXMLAbrirController implements Initializable {
         //Al pulsar crear directorio ejecuta la función
         crear_carpeta.setOnAction(event -> {
             try {
-                funciones.ventana_crear_fichero_directorio(constantes.CREAR_DIRECTORIO, textArea);
+                funciones.ventana_crear_fichero_directorio(constantes.CREAR_DIRECTORIO, textArea, stage_abrir);
             } catch (IOException ex) {
                 Logger.getLogger(FXMLAbrirController.class.getName()).log(Level.SEVERE, null, ex);
             }

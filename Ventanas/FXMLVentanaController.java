@@ -20,6 +20,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.TilePane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -40,9 +41,14 @@ public class FXMLVentanaController implements Initializable {
 
     private TextArea textArea;
     private TilePane tilepane;
+    private Stage stage_abrir;
 
     public void setTextArea(TextArea textArea) {
         this.textArea = textArea;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage_abrir = stage;
     }
 
     @FXML
@@ -72,9 +78,9 @@ public class FXMLVentanaController implements Initializable {
     private void onMouseClickedCreate(MouseEvent event) throws IOException {
         String nombre = tField.getText(); //Recoge el texto
         if (creacion.equals(constantes.CREAR_FICHERO)) {
-            ventanaAcciones.crear_fichero(nombre, textArea, tilepane); //Crea fichero
+            ventanaAcciones.crear_fichero(nombre, textArea, tilepane, stage_abrir); //Crea fichero
         } else if (creacion.equals(constantes.CREAR_DIRECTORIO)) {
-            ventanaAcciones.crear_directorio(nombre, textArea, tilepane); //Crea directorio
+            ventanaAcciones.crear_directorio(nombre, textArea, tilepane, stage_abrir); //Crea directorio
         }
         //cierra la ventana
         funciones.cerrar_ventana(event);
