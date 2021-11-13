@@ -25,7 +25,7 @@
                     <MenuItem mnemonicParsing="false" onAction="#click_guardar" text="Guardar" />
                         <MenuItem mnemonicParsing="false" onAction="#click_borrar" text="Borrar" />
                         <MenuItem mnemonicParsing="false" onAction="#click_abrir" text="Abrir" />
-                        <MenuItem mnemonicParsing="false" text="New File" />
+                        <MenuItem mnemonicParsing="false" onAction="#click_new_file" text="New File" />
                   </items>
                 </Menu>
               </menus>

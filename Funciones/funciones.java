@@ -18,6 +18,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.TilePane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -34,7 +35,7 @@ public class funciones {
         try {
             Files.createDirectory(path); //Crear directorio
         } catch (IOException ex) {
-            System.out.println("Ya existe la carpeta");
+
         }
     }
 
@@ -61,11 +62,9 @@ public class funciones {
             Stage stage = new Stage();
             fXMLAbrirControllerInstancia.setTextArea(textArea);
             fXMLAbrirControllerInstancia.setStageAbrir(stage);
+            fXMLAbrirControllerInstancia.setStageMain(stage_main);
             ventanaAcciones.CreateTilePaneWIcons(fXMLAbrirControllerInstancia.getTilePane(), textArea, stage_main, stage);
 
-            //Este es el stage que falta, el de la pantalla de archivos
-            //
-            //
             stage.initModality(Modality.APPLICATION_MODAL); //Application modal no permite interactuar con otras pantallas
             stage.setTitle("FILES"); //Nombre de la ventana
             //stage_mostrar_ficheros = stage;
@@ -77,14 +76,16 @@ public class funciones {
         }
     }
 
-    public static void ventana_crear_fichero_directorio(String nombreLabel, TextArea textArea, Stage stage_abrir) throws IOException {
+    public static void ventana_crear_fichero_directorio(String nombreLabel, TextArea textArea, Stage stage_abrir, Stage stage_main, TilePane tilepanel) throws IOException {
 
         FXMLLoader fxmlLoader = new FXMLLoader(Gestor_de_archivos_funcional.class.getResource("Ventanas/FXMLVentana.fxml"));
         Parent root = (Parent) fxmlLoader.load();
         //Crea una instancia
         FXMLVentanaController fXMLVentanaControllerInstancia = fxmlLoader.getController();
         fXMLVentanaControllerInstancia.enviarLabel(nombreLabel); //Modifica el label con crear carpeta o archivo
-        fXMLVentanaControllerInstancia.setStage(stage_abrir);
+        fXMLVentanaControllerInstancia.setStageAbrir(stage_abrir);
+        fXMLVentanaControllerInstancia.setStageMain(stage_main);
+        fXMLVentanaControllerInstancia.setTextTilepane(tilepanel);
         fXMLVentanaControllerInstancia.setTextArea(textArea);
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);//Application modal no permite interactuar con otras pantallas

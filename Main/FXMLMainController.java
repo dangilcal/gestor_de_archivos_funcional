@@ -5,6 +5,8 @@
  */
 package gestor_de_archivos_funcional.Main;
 
+import gestor_de_archivos_funcional.Funciones.SingletonRutas;
+import gestor_de_archivos_funcional.Funciones.constantes;
 import gestor_de_archivos_funcional.Funciones.funciones;
 import gestor_de_archivos_funcional.Funciones.ventanaAcciones;
 import java.io.IOException;
@@ -38,17 +40,26 @@ public class FXMLMainController implements Initializable {
 
     @FXML
     private void click_abrir(ActionEvent k) {
+        SingletonRutas sin = SingletonRutas.getInstancia();
+        sin.setResetRuta();
         funciones.ventana_mostrar_ficheros(textArea, stage);
     }
 
     @FXML
     private void click_borrar(ActionEvent k) {
         ventanaAcciones.eliminar_fichero(stage);
+        textArea.setText("");
     }
 
     @FXML
     private void click_guardar(ActionEvent k) throws IOException {
-        ventanaAcciones.guardar_fichero(textArea, stage);
+        ventanaAcciones.guardar_fichero(textArea, stage, null);
+    }
+
+    @FXML
+    private void click_new_file(ActionEvent k) {
+        textArea.setText("");
+        stage.setTitle(constantes.TITULO_MAIN);
     }
 
     public void setStage(Stage s) {

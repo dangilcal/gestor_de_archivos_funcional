@@ -5,8 +5,10 @@
  */
 package gestor_de_archivos_funcional.Abrir;
 
+import gestor_de_archivos_funcional.Funciones.SingletonRutas;
 import gestor_de_archivos_funcional.Funciones.constantes;
 import gestor_de_archivos_funcional.Funciones.funciones;
+import gestor_de_archivos_funcional.Funciones.ventanaAcciones;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,6 +20,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 
@@ -33,6 +36,7 @@ public class FXMLAbrirController implements Initializable {
 
     private TextArea textArea;
     private Stage stage_abrir;
+    private Stage stage_main;
 
     public void setTextArea(TextArea textArea) {
         this.textArea = textArea;
@@ -42,12 +46,26 @@ public class FXMLAbrirController implements Initializable {
         this.stage_abrir = stage_abrir;
     }
 
+    public void setStageMain(Stage stage_main) {
+        this.stage_main = stage_main;
+    }
+
     public TilePane getTilePane() {
         return tilePane;
     }
 
+    @FXML
+    public void onMouseClickedAtras(MouseEvent k) throws IOException {
+        SingletonRutas sin = SingletonRutas.getInstancia();
+        sin.setRutaAnterior();
+        stage_abrir.setTitle(sin.getRuta());
+        ventanaAcciones.mostrar(tilePane, textArea, stage_main, stage_abrir);
+
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        SingletonRutas sin = SingletonRutas.getInstancia();
         ContextMenu contextMenu = new ContextMenu();    //Crea un menu
         MenuItem crear_archivo = new MenuItem(constantes.CREAR_FICHERO); //Añades crear fichero al menu
         MenuItem crear_carpeta = new MenuItem(constantes.CREAR_DIRECTORIO); //Añades crear directorio al menu
@@ -68,7 +86,7 @@ public class FXMLAbrirController implements Initializable {
         //Al pulsar crear archivo ejecuta la función
         crear_archivo.setOnAction(event -> {
             try {
-                funciones.ventana_crear_fichero_directorio(constantes.CREAR_FICHERO, textArea, stage_abrir);
+                funciones.ventana_crear_fichero_directorio(constantes.CREAR_FICHERO, textArea, stage_abrir, stage_main, tilePane);
             } catch (IOException ex) {
                 Logger.getLogger(FXMLAbrirController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -77,7 +95,7 @@ public class FXMLAbrirController implements Initializable {
         //Al pulsar crear directorio ejecuta la función
         crear_carpeta.setOnAction(event -> {
             try {
-                funciones.ventana_crear_fichero_directorio(constantes.CREAR_DIRECTORIO, textArea, stage_abrir);
+                funciones.ventana_crear_fichero_directorio(constantes.CREAR_DIRECTORIO, textArea, stage_abrir, stage_main, tilePane);
             } catch (IOException ex) {
                 Logger.getLogger(FXMLAbrirController.class.getName()).log(Level.SEVERE, null, ex);
             }

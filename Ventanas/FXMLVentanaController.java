@@ -42,13 +42,22 @@ public class FXMLVentanaController implements Initializable {
     private TextArea textArea;
     private TilePane tilepane;
     private Stage stage_abrir;
+    private Stage stage_main;
 
     public void setTextArea(TextArea textArea) {
         this.textArea = textArea;
     }
 
-    public void setStage(Stage stage) {
+    public void setTextTilepane(TilePane tilePane) {
+        this.tilepane = tilePane;
+    }
+
+    public void setStageAbrir(Stage stage) {
         this.stage_abrir = stage;
+    }
+
+    public void setStageMain(Stage stage) {
+        this.stage_main = stage;
     }
 
     @FXML
@@ -78,9 +87,9 @@ public class FXMLVentanaController implements Initializable {
     private void onMouseClickedCreate(MouseEvent event) throws IOException {
         String nombre = tField.getText(); //Recoge el texto
         if (creacion.equals(constantes.CREAR_FICHERO)) {
-            ventanaAcciones.crear_fichero(nombre, textArea, tilepane, stage_abrir); //Crea fichero
+            ventanaAcciones.crear_fichero(nombre, textArea, tilepane, stage_main, stage_abrir); //Crea fichero
         } else if (creacion.equals(constantes.CREAR_DIRECTORIO)) {
-            ventanaAcciones.crear_directorio(nombre, textArea, tilepane, stage_abrir); //Crea directorio
+            ventanaAcciones.crear_directorio(nombre, textArea, tilepane, stage_main, stage_abrir); //Crea directorio
         }
         //cierra la ventana
         funciones.cerrar_ventana(event);

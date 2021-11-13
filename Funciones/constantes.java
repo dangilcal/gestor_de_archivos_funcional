@@ -17,5 +17,6 @@ public class constantes {
     public static final String IMAGEN_ARCHIVO = "Resources/fichero.png";
     public static final String CREAR_FICHERO = "Crear archivo";
     public static final String CREAR_DIRECTORIO = "Crear carpeta";
+    public static final String BORRAR = "Delete";
 
 }
