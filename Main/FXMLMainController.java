@@ -42,6 +42,8 @@ public class FXMLMainController implements Initializable {
     private void click_abrir(ActionEvent k) {
         SingletonRutas sin = SingletonRutas.getInstancia();
         sin.setResetRuta();
+        textArea.setText("");
+        stage.setTitle(constantes.TITULO_MAIN);
         funciones.ventana_mostrar_ficheros(textArea, stage);
     }
 

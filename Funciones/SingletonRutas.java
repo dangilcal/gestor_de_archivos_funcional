@@ -16,7 +16,6 @@ public class SingletonRutas {
 
     private static SingletonRutas rutas;
     private List lista_ruta;
-    private String ruta = "";
 
     public static SingletonRutas getInstancia() {
         if (rutas == null) {
@@ -27,10 +26,11 @@ public class SingletonRutas {
 
     private SingletonRutas() {
         this.lista_ruta = new ArrayList();
-        setResetRuta();
+        this.lista_ruta.add(constantes.CARPETA_RAIZ);
     }
 
     public String getRuta() {
+        String ruta = "";
         String temporal = "";
         for (int i = 0; i < lista_ruta.size(); i++) {
             ruta = lista_ruta.get(i) + "/";
@@ -44,7 +44,6 @@ public class SingletonRutas {
     }
 
     public void setResetRuta() {
-        //Preguntar que es mejor llamara a esta funcion para añadir o dupicar la linea
         lista_ruta.clear();
         this.lista_ruta.add(constantes.CARPETA_RAIZ);
     }
