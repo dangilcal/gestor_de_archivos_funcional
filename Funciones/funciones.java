@@ -61,7 +61,6 @@ public class funciones {
 
             Stage stage = new Stage();
             fXMLAbrirControllerInstancia.setTextArea(textArea);
-            fXMLAbrirControllerInstancia.setStageAbrir(stage);
             fXMLAbrirControllerInstancia.setStageMain(stage_main);
             ventanaAcciones.CreateTilePaneWIcons(fXMLAbrirControllerInstancia.getTilePane(), textArea, stage_main, stage);
 
@@ -76,14 +75,13 @@ public class funciones {
         }
     }
 
-    public static void ventana_crear_fichero_directorio(String nombreLabel, TextArea textArea, Stage stage_abrir, Stage stage_main, TilePane tilepanel) throws IOException {
+    public static void ventana_crear_fichero_directorio(String nombreLabel, TextArea textArea, Stage stage_main, TilePane tilepanel) throws IOException {
 
         FXMLLoader fxmlLoader = new FXMLLoader(Gestor_de_archivos_funcional.class.getResource("Ventanas/FXMLVentana.fxml"));
         Parent root = (Parent) fxmlLoader.load();
         //Crea una instancia
         FXMLVentanaController fXMLVentanaControllerInstancia = fxmlLoader.getController();
         fXMLVentanaControllerInstancia.enviarLabel(nombreLabel); //Modifica el label con crear carpeta o archivo
-        fXMLVentanaControllerInstancia.setStageAbrir(stage_abrir);
         fXMLVentanaControllerInstancia.setStageMain(stage_main);
         fXMLVentanaControllerInstancia.setTextTilepane(tilepanel);
         fXMLVentanaControllerInstancia.setTextArea(textArea);
@@ -96,9 +94,17 @@ public class funciones {
 
     public static void cerrar_ventana(MouseEvent event) {
         //Cierra la ventana
+        stage_abrir(event).close();
+    }
+
+    public static void titulo_ventana(MouseEvent event, String titulo) {
+        stage_abrir(event).setTitle(titulo);
+    }
+
+    public static Stage stage_abrir(MouseEvent event) {
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
-        stage.close();
+        return stage;
     }
 
 }

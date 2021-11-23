@@ -37,7 +37,7 @@ import javafx.stage.Stage;
  */
 public class ventanaAcciones {
 
-    public static void mostrar(TilePane tilepane, TextArea textArea, Stage stage_main, Stage stage) throws IOException {
+    public static void mostrar(TilePane tilepane, TextArea textArea, Stage stage_main) throws IOException {
         SingletonRutas sin = SingletonRutas.getInstancia();
         List<Path> result;
         try (Stream<Path> paths = Files.walk(Paths.get(sin.getRuta()), 1)) {
@@ -58,10 +58,10 @@ public class ventanaAcciones {
             File file = result.get(i).toFile();
             if (file.isDirectory()) { //Elige la imagen
                 foto = constantes.IMAGEN_CARPETA;
-                Entrar_carpeta(caja, file, textArea, tilepane, stage_main, stage); //Doble click para entrar en la carpeta
+                Entrar_carpeta(caja, file, textArea, tilepane, stage_main); //Doble click para entrar en la carpeta
             } else if (file.isFile()) {
                 foto = constantes.IMAGEN_ARCHIVO;
-                Editar_fichero(caja, file, textArea, tilepane, stage_main, stage);
+                Editar_fichero(caja, file, textArea, tilepane, stage_main);
             }
             //Insertar imagen y el tamaño de las imagenes
             Image imagen = new Image(gestor_de_archivos_funcional.Gestor_de_archivos_funcional.class.getResource(foto).toString());
@@ -78,7 +78,7 @@ public class ventanaAcciones {
 
     }
 
-    private static void Entrar_carpeta(BorderPane caja, File file, TextArea textArea, TilePane tilepane, Stage stage_main, Stage stage) {
+    private static void Entrar_carpeta(BorderPane caja, File file, TextArea textArea, TilePane tilepane, Stage stage_main) {
         ContextMenu contextMenu = new ContextMenu();    //Crea un menu
         MenuItem Delete = new MenuItem(constantes.BORRAR);
         contextMenu.getItems().add(Delete);
@@ -88,9 +88,9 @@ public class ventanaAcciones {
 
             if (event.getClickCount() == 2) {
                 sin.setCarpeta(file.getName());
-                stage.setTitle(sin.getRuta());
+                funciones.titulo_ventana(event, sin.getRuta());
                 try {
-                    mostrar(tilepane, textArea, stage_main, stage);
+                    mostrar(tilepane, textArea, stage_main);
                 } catch (IOException ex) {
                     Logger.getLogger(ventanaAcciones.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -103,11 +103,11 @@ public class ventanaAcciones {
         });
 
         Delete.setOnAction(event -> {
-            Click_Borrar_carpeta(file, textArea, tilepane, stage_main, stage);
+            Click_Borrar_carpeta(file, textArea, tilepane, stage_main);
         });
     }
 
-    private static void Click_Borrar_carpeta(File file, TextArea textArea, TilePane tilepane, Stage stage_main, Stage stage) {
+    private static void Click_Borrar_carpeta(File file, TextArea textArea, TilePane tilepane, Stage stage_main) {
         SingletonRutas sin = SingletonRutas.getInstancia();
         Path rootPath = Paths.get(sin.getRuta() + file.getName());
         List<Path> pathsToDelete = null;
@@ -116,13 +116,13 @@ public class ventanaAcciones {
             for (Path path : pathsToDelete) {
                 Files.deleteIfExists(path);
             }
-            mostrar(tilepane, textArea, stage_main, stage);
+            mostrar(tilepane, textArea, stage_main);
         } catch (IOException ex) {
             Logger.getLogger(ventanaAcciones.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    private static void Editar_fichero(BorderPane caja, File file, TextArea textArea, TilePane tilepane, Stage stage_main, Stage stage) {
+    private static void Editar_fichero(BorderPane caja, File file, TextArea textArea, TilePane tilepane, Stage stage_main) {
         ContextMenu contextMenu = new ContextMenu();    //Crea un menu
         MenuItem Delete = new MenuItem(constantes.BORRAR);
         contextMenu.getItems().addAll(Delete);
@@ -139,7 +139,7 @@ public class ventanaAcciones {
                 } catch (IOException ex) {
                     Logger.getLogger(ventanaAcciones.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                stage.close();
+                funciones.cerrar_ventana(event);
             }
         });
 
@@ -152,14 +152,14 @@ public class ventanaAcciones {
             File fi = new File(sin.getRuta() + file.getName());
             fi.delete();
             try {
-                mostrar(tilepane, textArea, stage_main, stage);
+                mostrar(tilepane, textArea, stage_main);
             } catch (IOException ex) {
                 Logger.getLogger(ventanaAcciones.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }
 
-    public static void crear_directorio(String nombre, TextArea textArea, TilePane tilepane, Stage stage_main, Stage stage_abrir) throws IOException {
+    public static void crear_directorio(String nombre, TextArea textArea, TilePane tilepane, Stage stage_main) throws IOException {
         SingletonRutas sin = SingletonRutas.getInstancia();
         Path path = Paths.get(sin.getRuta() + nombre + "/");
         try {
@@ -167,11 +167,11 @@ public class ventanaAcciones {
         } catch (IOException ex) {
         }
 
-        mostrar(tilepane, textArea, stage_main, stage_abrir); //Limpia y muestra los ficheros
+        mostrar(tilepane, textArea, stage_main); //Limpia y muestra los ficheros
 
     }
 
-    public static void crear_fichero(String nombre, TextArea textArea, TilePane tilepane, Stage stage_main, Stage stage_abrir) throws IOException {
+    public static void crear_fichero(String nombre, TextArea textArea, TilePane tilepane, Stage stage_main) throws IOException {
         SingletonRutas sin = SingletonRutas.getInstancia();
         Path path = Paths.get(sin.getRuta() + nombre + ".txt");
         try {
@@ -180,7 +180,7 @@ public class ventanaAcciones {
             System.out.println("Ya existe el archivo");
         }
         if (tilepane != null) {
-            mostrar(tilepane, textArea, stage_main, stage_abrir); //Limpia y muestra los ficheros
+            mostrar(tilepane, textArea, stage_main); //Limpia y muestra los ficheros
         } else {
             sin.setResetRuta();
             sin.setCarpeta(nombre + ".txt");
@@ -202,7 +202,7 @@ public class ventanaAcciones {
         SingletonRutas sin = SingletonRutas.getInstancia();
         String text = textArea.getText();
         if (stage_main.getTitle().equals(constantes.TITULO_MAIN)) {
-            funciones.ventana_crear_fichero_directorio(constantes.CREAR_FICHERO, textArea, null, stage_main, tilepanel);
+            funciones.ventana_crear_fichero_directorio(constantes.CREAR_FICHERO, textArea, stage_main, tilepanel);
         } else {
             Files.write(Paths.get(sin.getRuta()), text.getBytes(StandardCharsets.UTF_8),
                     StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
@@ -213,7 +213,7 @@ public class ventanaAcciones {
     public static void CreateTilePaneWIcons(TilePane titlePane, TextArea textArea, Stage stage_main, Stage stage) throws IOException {
 
         funciones.crear_carpeta_principal(); //Crea la carpeta si no existe
-        ventanaAcciones.mostrar(titlePane, textArea, stage_main, stage); //Muestra el panel con los ficheros
+        ventanaAcciones.mostrar(titlePane, textArea, stage_main); //Muestra el panel con los ficheros
 
     }
 }

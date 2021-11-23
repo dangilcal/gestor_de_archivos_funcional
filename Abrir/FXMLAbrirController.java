@@ -35,15 +35,10 @@ public class FXMLAbrirController implements Initializable {
     private TilePane tilePane;
 
     private TextArea textArea;
-    private Stage stage_abrir;
     private Stage stage_main;
 
     public void setTextArea(TextArea textArea) {
         this.textArea = textArea;
-    }
-
-    public void setStageAbrir(Stage stage_abrir) {
-        this.stage_abrir = stage_abrir;
     }
 
     public void setStageMain(Stage stage_main) {
@@ -58,8 +53,8 @@ public class FXMLAbrirController implements Initializable {
     public void onMouseClickedAtras(MouseEvent k) throws IOException {
         SingletonRutas sin = SingletonRutas.getInstancia();
         sin.setRutaAnterior();
-        stage_abrir.setTitle(sin.getRuta());
-        ventanaAcciones.mostrar(tilePane, textArea, stage_main, stage_abrir);
+        funciones.titulo_ventana(k, sin.getRuta());
+        ventanaAcciones.mostrar(tilePane, textArea, stage_main);
 
     }
 
@@ -86,7 +81,7 @@ public class FXMLAbrirController implements Initializable {
         //Al pulsar crear archivo ejecuta la función
         crear_archivo.setOnAction(event -> {
             try {
-                funciones.ventana_crear_fichero_directorio(constantes.CREAR_FICHERO, textArea, stage_abrir, stage_main, tilePane);
+                funciones.ventana_crear_fichero_directorio(constantes.CREAR_FICHERO, textArea, stage_main, tilePane);
             } catch (IOException ex) {
                 Logger.getLogger(FXMLAbrirController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -95,7 +90,7 @@ public class FXMLAbrirController implements Initializable {
         //Al pulsar crear directorio ejecuta la función
         crear_carpeta.setOnAction(event -> {
             try {
-                funciones.ventana_crear_fichero_directorio(constantes.CREAR_DIRECTORIO, textArea, stage_abrir, stage_main, tilePane);
+                funciones.ventana_crear_fichero_directorio(constantes.CREAR_DIRECTORIO, textArea, stage_main, tilePane);
             } catch (IOException ex) {
                 Logger.getLogger(FXMLAbrirController.class.getName()).log(Level.SEVERE, null, ex);
             }
