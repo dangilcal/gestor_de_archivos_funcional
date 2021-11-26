@@ -210,7 +210,7 @@ public class ventanaAcciones {
 
     }
 
-    public static void CreateTilePaneWIcons(TilePane titlePane, TextArea textArea, Stage stage_main, Stage stage) throws IOException {
+    public static void CreateTilePaneWIcons(TilePane titlePane, TextArea textArea, Stage stage_main) throws IOException {
 
         funciones.crear_carpeta_principal(); //Crea la carpeta si no existe
         ventanaAcciones.mostrar(titlePane, textArea, stage_main); //Muestra el panel con los ficheros

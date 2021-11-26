@@ -62,7 +62,7 @@ public class funciones {
             Stage stage = new Stage();
             fXMLAbrirControllerInstancia.setTextArea(textArea);
             fXMLAbrirControllerInstancia.setStageMain(stage_main);
-            ventanaAcciones.CreateTilePaneWIcons(fXMLAbrirControllerInstancia.getTilePane(), textArea, stage_main, stage);
+            ventanaAcciones.CreateTilePaneWIcons(fXMLAbrirControllerInstancia.getTilePane(), textArea, stage_main);
 
             stage.initModality(Modality.APPLICATION_MODAL); //Application modal no permite interactuar con otras pantallas
             stage.setTitle("FILES"); //Nombre de la ventana
@@ -94,17 +94,26 @@ public class funciones {
 
     public static void cerrar_ventana(MouseEvent event) {
         //Cierra la ventana
-        stage_abrir(event).close();
+        if (event != null) {
+            stage_abrir(event).close();
+        }
+
     }
 
     public static void titulo_ventana(MouseEvent event, String titulo) {
-        stage_abrir(event).setTitle(titulo);
+        if (event != null) {
+            stage_abrir(event).setTitle(titulo);
+        }
     }
 
     public static Stage stage_abrir(MouseEvent event) {
-        Node source = (Node) event.getSource();
-        Stage stage = (Stage) source.getScene().getWindow();
-        return stage;
+        if (event != null) {
+            Node source = (Node) event.getSource();
+            Stage stage = (Stage) source.getScene().getWindow();
+            return stage;
+        } else {
+            return null;
+        }
     }
 
 }
