@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane id="AnchorPane" prefHeight="138.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestor_de_archivos_funcional.Ventanas.FXMLVentanaController">
+   <children>
+      <Pane prefHeight="200.0" prefWidth="335.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Button fx:id="cancelarCreacion" layoutY="1.0" mnemonicParsing="false" onMouseClicked="#onMouseClickedClose" text="Cancel" />
+            <Button fx:id="create" disable="true" layoutX="273.0" layoutY="1.0" mnemonicParsing="false" onMouseClicked="#onMouseClickedCreate" text="Create" />
+            <Label fx:id="label" layoutX="85.0" layoutY="6.0" prefHeight="16.0" prefWidth="163.0" text="Label" />
+            <Label layoutX="85.0" layoutY="61.0" text="Label" />
+            <TextField fx:id="tField" layoutX="85.0" layoutY="77.0" onKeyReleased="#onKeyReleased" onKeyTyped="#onKeyTyped" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
