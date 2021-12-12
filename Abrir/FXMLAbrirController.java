@@ -12,8 +12,6 @@ import gestor_de_archivos_funcional.Funciones.ventanaAcciones;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ContextMenu;
@@ -52,6 +50,9 @@ public class FXMLAbrirController implements Initializable {
     @FXML
     public void onMouseClickedAtras(MouseEvent k) throws IOException {
         SingletonRutas sin = SingletonRutas.getInstancia();
+        if (sin.getRuta().equals("FILES/") || sin.getRuta().equals("FILES")) {
+            funciones.cerrar_ventana(k);
+        }
         sin.setRutaAnterior();
         funciones.titulo_ventana(k, sin.getRuta());
         ventanaAcciones.mostrar(tilePane, textArea, stage_main);
@@ -63,7 +64,9 @@ public class FXMLAbrirController implements Initializable {
         SingletonRutas sin = SingletonRutas.getInstancia();
         ContextMenu contextMenu = new ContextMenu();    //Crea un menu
         MenuItem crear_archivo = new MenuItem(constantes.CREAR_FICHERO); //Añades crear fichero al menu
+        crear_archivo.setId("crearArchivo");
         MenuItem crear_carpeta = new MenuItem(constantes.CREAR_DIRECTORIO); //Añades crear directorio al menu
+        crear_carpeta.setId("crearCarpeta");
         contextMenu.getItems().addAll(crear_archivo, crear_carpeta);
 
         //Al pulsar click derecho en el titlePane muestra el menu
@@ -83,7 +86,7 @@ public class FXMLAbrirController implements Initializable {
             try {
                 funciones.ventana_crear_fichero_directorio(constantes.CREAR_FICHERO, textArea, stage_main, tilePane);
             } catch (IOException ex) {
-                Logger.getLogger(FXMLAbrirController.class.getName()).log(Level.SEVERE, null, ex);
+
             }
         });
 
@@ -92,7 +95,7 @@ public class FXMLAbrirController implements Initializable {
             try {
                 funciones.ventana_crear_fichero_directorio(constantes.CREAR_DIRECTORIO, textArea, stage_main, tilePane);
             } catch (IOException ex) {
-                Logger.getLogger(FXMLAbrirController.class.getName()).log(Level.SEVERE, null, ex);
+
             }
         });
 

@@ -14,8 +14,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Comparator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javafx.geometry.Insets;
@@ -81,6 +79,7 @@ public class ventanaAcciones {
     private static void Entrar_carpeta(BorderPane caja, File file, TextArea textArea, TilePane tilepane, Stage stage_main) {
         ContextMenu contextMenu = new ContextMenu();    //Crea un menu
         MenuItem Delete = new MenuItem(constantes.BORRAR);
+        Delete.setId("delCarpeta");
         contextMenu.getItems().add(Delete);
         SingletonRutas sin = SingletonRutas.getInstancia();
 
@@ -92,7 +91,6 @@ public class ventanaAcciones {
                 try {
                     mostrar(tilepane, textArea, stage_main);
                 } catch (IOException ex) {
-                    Logger.getLogger(ventanaAcciones.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
@@ -118,13 +116,13 @@ public class ventanaAcciones {
             }
             mostrar(tilepane, textArea, stage_main);
         } catch (IOException ex) {
-            Logger.getLogger(ventanaAcciones.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     private static void Editar_fichero(BorderPane caja, File file, TextArea textArea, TilePane tilepane, Stage stage_main) {
         ContextMenu contextMenu = new ContextMenu();    //Crea un menu
         MenuItem Delete = new MenuItem(constantes.BORRAR);
+        Delete.setId("delArchivo");
         contextMenu.getItems().addAll(Delete);
         SingletonRutas sin = SingletonRutas.getInstancia();
 
@@ -137,7 +135,6 @@ public class ventanaAcciones {
                     String content = new String(bytes, StandardCharsets.UTF_8);
                     textArea.setText(content);
                 } catch (IOException ex) {
-                    Logger.getLogger(ventanaAcciones.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 funciones.cerrar_ventana(event);
             }
@@ -154,7 +151,6 @@ public class ventanaAcciones {
             try {
                 mostrar(tilepane, textArea, stage_main);
             } catch (IOException ex) {
-                Logger.getLogger(ventanaAcciones.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }
@@ -177,7 +173,6 @@ public class ventanaAcciones {
         try {
             Files.createFile(path);
         } catch (IOException ex) {
-            System.out.println("Ya existe el archivo");
         }
         if (tilepane != null) {
             mostrar(tilepane, textArea, stage_main); //Limpia y muestra los ficheros
@@ -211,8 +206,6 @@ public class ventanaAcciones {
     }
 
     public static void CreateTilePaneWIcons(TilePane titlePane, TextArea textArea, Stage stage_main) throws IOException {
-
-        funciones.crear_carpeta_principal(); //Crea la carpeta si no existe
         ventanaAcciones.mostrar(titlePane, textArea, stage_main); //Muestra el panel con los ficheros
 
     }

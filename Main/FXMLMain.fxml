@@ -18,14 +18,14 @@
               <menus>
                 <Menu fx:id="Menu_Info" mnemonicParsing="false" text="Info">
                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#click_info" text="Info" />
+                        <MenuItem fx:id="menuInfo" mnemonicParsing="false" onAction="#click_info" text="Info" />
                      </items></Menu>
-                <Menu mnemonicParsing="false" text="Edit">
+                <Menu fx:id="MenuEdit" mnemonicParsing="false" text="Edit">
                   <items>
-                    <MenuItem mnemonicParsing="false" onAction="#click_guardar" text="Guardar" />
-                        <MenuItem mnemonicParsing="false" onAction="#click_borrar" text="Borrar" />
-                        <MenuItem mnemonicParsing="false" onAction="#click_abrir" text="Abrir" />
-                        <MenuItem mnemonicParsing="false" onAction="#click_new_file" text="New File" />
+                    <MenuItem fx:id="Guardar" mnemonicParsing="false" onAction="#click_guardar" text="Guardar" />
+                        <MenuItem fx:id="clickBorrarFile" mnemonicParsing="false" onAction="#click_borrar" text="Borrar" />
+                        <MenuItem fx:id="clickAbrir" mnemonicParsing="false" onAction="#click_abrir" text="Abrir" />
+                        <MenuItem fx:id="clickNewFile" mnemonicParsing="false" onAction="#click_new_file" text="New File" />
                   </items>
                 </Menu>
               </menus>

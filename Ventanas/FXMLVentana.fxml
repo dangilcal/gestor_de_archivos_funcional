@@ -10,7 +10,7 @@
    <children>
       <Pane prefHeight="200.0" prefWidth="335.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button layoutY="1.0" mnemonicParsing="false" onMouseClicked="#onMouseClickedClose" text="Cancel" />
+            <Button fx:id="cancelarCreacion" layoutY="1.0" mnemonicParsing="false" onMouseClicked="#onMouseClickedClose" text="Cancel" />
             <Button fx:id="create" disable="true" layoutX="273.0" layoutY="1.0" mnemonicParsing="false" onMouseClicked="#onMouseClickedCreate" text="Create" />
             <Label fx:id="label" layoutX="85.0" layoutY="6.0" prefHeight="16.0" prefWidth="163.0" text="Label" />
             <Label layoutX="85.0" layoutY="61.0" text="Label" />

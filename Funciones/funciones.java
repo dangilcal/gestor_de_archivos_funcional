@@ -35,7 +35,6 @@ public class funciones {
         try {
             Files.createDirectory(path); //Crear directorio
         } catch (IOException ex) {
-
         }
     }
 
@@ -49,7 +48,6 @@ public class funciones {
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
-            System.out.println(e);
         }
     }
 
@@ -71,7 +69,6 @@ public class funciones {
             //ventanaAcciones.rutaAcual_raiz();
             stage.show();
         } catch (IOException e) {
-            System.out.println(e);
         }
     }
 

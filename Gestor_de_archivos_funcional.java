@@ -6,6 +6,7 @@
 package gestor_de_archivos_funcional;
 
 import gestor_de_archivos_funcional.Funciones.constantes;
+import gestor_de_archivos_funcional.Funciones.funciones;
 import gestor_de_archivos_funcional.Main.FXMLMainController;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -36,6 +37,7 @@ public class Gestor_de_archivos_funcional extends Application {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle(constantes.TITULO_MAIN);
+        funciones.crear_carpeta_principal(); //Crea la carpeta si no existe
         stage.show();
         stage.setOnCloseRequest(a -> Platform.exit());
     }
