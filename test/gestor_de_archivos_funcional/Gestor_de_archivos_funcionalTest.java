@@ -76,9 +76,9 @@ public class Gestor_de_archivos_funcionalTest extends ApplicationTest {
         Abrir();
         TilePane tilePane = lookup("#tilePane").query();
         Bounds bounds = tilePane.getBoundsInLocal();
-        Bounds coordenada = tilePane.localToScene(bounds);
-        int x = (int) coordenada.getMaxX();
-        int y = (int) coordenada.getMaxY();
+        Bounds coordenada = tilePane.localToScreen(bounds);
+        int x = (int) coordenada.getMinX();
+        int y = (int) coordenada.getMinY();
         rightClickOn(x + 1, y + 1);
         clickOn("#crearArchivo");
         Guardar();
@@ -97,9 +97,9 @@ public class Gestor_de_archivos_funcionalTest extends ApplicationTest {
         Abrir();
         TilePane tilePane = lookup("#tilePane").query();
         Bounds bounds = tilePane.getBoundsInLocal();
-        Bounds coordenada = tilePane.localToScene(bounds);
-        int x = (int) coordenada.getMaxX();
-        int y = (int) coordenada.getMaxY();
+        Bounds coordenada = tilePane.localToScreen(bounds);
+        int x = (int) coordenada.getMinX();
+        int y = (int) coordenada.getMinY();
         rightClickOn(x + 1, y + 1);
         clickOn("#crearCarpeta");
         Guardar();
